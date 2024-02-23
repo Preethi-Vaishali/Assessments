@@ -8,13 +8,14 @@
 --INSERT INTO employee VALUES(20, 'Finn', 'Müller', '1967-05-12', 'M', 85000, NULL, NULL)
 --select * from employee
 --UPDATE employee SET branch_id = 1 WHERE emp_id=20
---INSERT INTO employee VALUES(21, 'Lucas', 'Schmidt', '1972-08-30', 'M', 200000, 20, 1),(22, 'Jonas', 'Fischer', '1983-01-01', 'M', 65000, 22, 2),
---							(23, 'Ella', 'Weber', '1964-05-22', 'F', 170000, 22, 2),
---                          (24, 'Ida', 'Wagner', '1970-03-07', 'F', 90000, 22, 2),
---						 (25, 'Ben', 'Schneider', '1973-08-25', 'M', 72000, 22, 2),
---						 (26, 'Oliver', 'Brown', '1989-03-02', 'M', 199000, 26, 3),							 
---                     (27, 'Leonie', 'Williams', '1977-07-07', 'F', 80000, 26, 3),
---					(28, 'Lea', 'Zimmerman', '1983-12-05', 'F', 62000, 26, 3)
+--INSERT INTO employee VALUES(21, 'Lucas', 'Schmidt', '1972-08-30', 'M', 200000, 20, 1),
+--(22, 'Jonas', 'Fischer', '1983-01-01', 'M', 65000, 22, 2),
+--(23, 'Ella', 'Weber', '1964-05-22', 'F', 170000, 22, 2),
+--(24, 'Ida', 'Wagner', '1970-03-07', 'F', 90000, 22, 2),
+--(25, 'Ben', 'Schneider', '1973-08-25', 'M', 72000, 22, 2),
+--(26, 'Oliver', 'Brown', '1989-03-02', 'M', 199000, 26, 3),							 
+--(27, 'Leonie', 'Williams', '1977-07-07', 'F', 80000, 26, 3),
+--(28, 'Lea', 'Zimmerman', '1983-12-05', 'F', 62000, 26, 3)
 
 
 
@@ -26,7 +27,7 @@
 --INSERT INTO branch_supplier VALUES(1, 'S_Direkt', 'Insurance'),(1, 'Inshared', 'Insurance'),(2, 'Deutsche_Bank', 'Credit'),(2, 'Commerzbank', 'Credit'),
 --(3, 'Ostrom', 'Renewable'),(3, 'E.On_Energy', 'Electricity') on conflict do nothing
 --alter table branch_supplier alter column supplier_name set NOT NULL
-
+--drop table branch_supplier
 
 --select * from client
 --INSERT INTO client VALUES(10, 'Daniel', 'Maier', 2),(11, 'Ella', 'Walter', 2),(12, 'Zhang', 'Wei', 1),(13, 'Ivan', 'Kirillov', 3),
