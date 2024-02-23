@@ -35,4 +35,36 @@
 
 ---------------------Imarticus Learning----------------------
 --create table if not exists ImLearn(stud_id int primary key not null, Stud_name varchar(20), Qual varchar(20), email varchar(30), contact int, course_id int, doj date)
+--create table if not exists course(course_id int primary key not null, course_name varchar(20),fees int, duration varchar(20))
+--insert into Imlearn values (1,'Fathima','MCA','fathima@gmail.com',9876543210,1,'2024-02-12'),(2,'Raveena','Bsc','raveena@gmail.com',8776543219,2,'2024-02-20'),
+--(3,'Vinoth','MSc','vinoth@gmail.com',8776543210,1,'2024-01-17'),(4,'Tarun','BCom','tarun@gmail.com',6778976543,3,'2023-09-24'),
+--(5,'Rajesh','BCom','rajesh@gmail.com',8779023456,3,'2023-08-17'),(6,'Kalyani','BSc','Kalyani@gmail.com',7889012345,2,'2023-10-23'),
+--(7,'Hemanth','MSc','hemanth@gmail.com',8776543210,1,'2023-11-27')
+--insert into course values(1,'FSD',80000,'6 months'),(2,'PGA',125000,'9 months'),(3,'Cibop',90000,'6 months'),(4,'Digital Marketing',85000,'4 months')
+
+--select max(fees) as max_fees from course
+
+--select sum(fees) as total_fees from course
+
+--select learn.stud_id, learn.stud_name, learn.qual, learn.email, learn.contact, learn.doj, cou.cou.Fees, cou.Duration from Imlearn learn join Course cou ON learn.course_id = cou.course_id
+--where cou.course_name = 'FSD'
+
+--select learn.stud_id, learn.stud_name, learn.qual, learn.email, learn.contact, learn.doj, cou.course_id,cou.Fees, cou.Duration from Imlearn learn join Course cou ON learn.course_id = cou.course_id
+--where cou.course_name in( 'FSD','PGA')
+
+--select learn.stud_id, learn.stud_name, learn.qual, learn.email, learn.contact, learn.doj, cou.course_id, cou.course_name from Imlearn learn inner join
+--Course cou on learn.course_id=cou.course_id
+
+--select * from Imlearn order by stud_id offset 3
+
+--select learn.*, cou.* FROM imlearn learn join course cou on learn.course_id = cou.course_id
+
+--select * from imlearn where doj between '2023-10-11' and '2024-02-23'
+
+--select * from imlearn where stud_name like 'R%'
+
+
+
+
+
 
