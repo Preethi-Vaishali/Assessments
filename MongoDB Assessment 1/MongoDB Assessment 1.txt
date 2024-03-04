@@ -1,0 +1,681 @@
+1. Employee Table
+
+use Assessments
+switched to db Assessments
+db.createCollection("emp")
+{ ok: 1 }
+1.
+db.emp.insertMany([
+{
+	'_id': 101,
+	'emp_name': "John Smith",
+	'role': "Team Member",
+	'salary': 40000
+},
+{
+	'_id':102,
+	'emp_name': "Mark Antony",
+	'role': "Team leader",
+	'salary': 50000
+},
+{
+	'_id': 103,
+	'emp_name': "Jane Bloggs",
+	'role': "Project Leader",
+	'salary': 60000
+},
+{
+	'_id':104,
+	'emp_name': "Susan Zin",
+	'role': "Intern",
+	'salary': 15000
+}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 101,
+    '1': 102,
+    '2': 103,
+    '3': 104
+  }
+}
+
+db.createCollection("personal")
+{ ok: 1 }
+db.createCollection("personal")
+{ ok: 1 }
+db.personal.insertMany([
+{
+	'_id': 101,
+	'street': "12, Main street",
+	'city': "Coimbatore",
+	'state': 'Tamil Nadu'
+},
+{
+	'_id':102,
+	'street': "23, Tailor street",
+	'city': "Bangalore",
+	'state': 'Karnataka'
+},
+{
+	'_id': 103,
+	'street': "67, Baker's Street",
+	'city': "Pondicherry",
+	'state': "Pondicherry"
+},
+{
+	'_id':104,
+	'street': "78,Lake view street",
+	'city': "Kochi",
+	'state': "Kerela"
+}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 101,
+    '1': 102,
+    '2': 103,
+    '3': 104
+  }
+}
+
+
+2.
+db.emp.aggregate([{$lookup:{
+from:"personal", localField:"_id", foreignField:"_id", as:"child collection"
+}}])
+{
+  _id: 101,
+  emp_name: 'John Smith',
+  role: 'Team Member',
+  salary: 40000,
+  'child collection': [
+    {
+      _id: 101,
+      street: '12, Main street',
+      city: 'Coimbatore',
+      state: 'Tamil Nadu'
+    }
+  ]
+}
+{
+  _id: 102,
+  emp_name: 'Mark Antony',
+  role: 'Team leader',
+  salary: 50000,
+  'child collection': [
+    {
+      _id: 102,
+      street: '23, Tailor street',
+      city: 'Bangalore',
+      state: 'Karnataka'
+    }
+  ]
+}
+{
+  _id: 103,
+  emp_name: 'Jane Bloggs',
+  role: 'Project Leader',
+  salary: 60000,
+  'child collection': [
+    {
+      _id: 103,
+      street: "67, Baker's Street",
+      city: 'Pondicherry',
+      state: 'Pondicherry'
+    }
+  ]
+}
+{
+  _id: 104,
+  emp_name: 'Susan Zin',
+  role: 'Intern',
+  salary: 15000,
+  'child collection': [
+    {
+      _id: 104,
+      street: '78,Lake view street',
+      city: 'Kochi',
+      state: 'Kerela'
+    }
+  ]
+}
+
+
+3.
+db.emp.updateOne({"_id":103},{$set:{"salary":65000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.emp.find()
+{
+  _id: 101,
+  emp_name: 'John Smith',
+  role: 'Team Member',
+  salary: 40000
+}
+{
+  _id: 102,
+  emp_name: 'Mark Antony',
+  role: 'Team leader',
+  salary: 50000
+}
+{
+  _id: 103,
+  emp_name: 'Jane Bloggs',
+  role: 'Project Leader',
+  salary: 65000
+}
+{
+  _id: 104,
+  emp_name: 'Susan Zin',
+  role: 'Intern',
+  salary: 15000
+}
+
+
+4.
+db.emp.find({"salary":{$gt:40000}})
+{
+  _id: 102,
+  emp_name: 'Mark Antony',
+  role: 'Team leader',
+  salary: 50000
+}
+{
+  _id: 103,
+  emp_name: 'Jane Bloggs',
+  role: 'Project Leader',
+  salary: 65000
+}
+
+
+5.
+db.emp.find({"salary":{$gt:40000}})
+{
+  _id: 102,
+  emp_name: 'Mark Antony',
+  role: 'Team leader',
+  salary: 50000
+}
+{
+  _id: 103,
+  emp_name: 'Jane Bloggs',
+  role: 'Project Leader',
+  salary: 65000
+}
+
+
+
+6.
+db.emp.find({"salary":{$gt:40000}})
+{
+  _id: 102,
+  emp_name: 'Mark Antony',
+  role: 'Team leader',
+  salary: 50000
+}
+{
+  _id: 103,
+  emp_name: 'Jane Bloggs',
+  role: 'Project Leader',
+  salary: 65000
+}
+
+
+7.
+db.emp.find({},{_id:0,role:true})
+{
+  role: 'Team Member'
+}
+{
+  role: 'Project Leader'
+}
+{
+  role: 'Team leader'
+}
+{
+  role: 'Intern'
+}
+
+
+
+2. Customer table
+
+1. 
+
+
+db.createCollection("Cust")
+{ ok: 1 }
+db.Cust.insertMany([
+{
+	'Cust_id': 101,
+	'Cust_name': "Praveen",
+	'city': "Coimbatore",
+	'address': "12, Jain Street",
+	'contact':976543210
+},
+{
+	'Cust_id': 102,
+	'Cust_name': "Rattan",
+	'city': "Delhi",
+	'address': "14, Nehru Street",
+	'contact': 9867854321
+},
+{
+	'Cust_id': 103,
+	'Cust_name': "Charles",
+	'city': "Mumbai",
+	'address': "67, Canal Street",
+	'contact':8765412345
+},
+{
+	'Cust_id': 104,
+	'Cust_name': "Tiger",
+	'city': "Pune",
+	'address': "34, Mocha Street",
+	'contact': 7890123456
+},
+{
+	'Cust_id': 105,
+	'Cust_name': "Kishore",
+	'city': "Bangalore",
+	'address': "9, West Road",
+	'contact': 6789054321
+}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65e56ae7461d1b49316323c4'),
+    '1': ObjectId('65e56ae7461d1b49316323c5'),
+    '2': ObjectId('65e56ae7461d1b49316323c6'),
+    '3': ObjectId('65e56ae7461d1b49316323c7'),
+    '4': ObjectId('65e56ae7461d1b49316323c8')
+  }
+}
+
+
+
+db.order.insertMany([
+{
+	'Order_id': 1,
+	'Order_no': 20123,
+	'Order_date':8/11/22,
+	'Cust_id': 101,
+	'Product': "Samsung Mobile",
+	'ship date': 10/11/22,
+	'quan':1
+},
+{
+	'Order_id': 2,
+	'Order_no': 20124,
+	'Order_date':7/11/22,
+	'Cust_id': 102,
+	'Product': "Oppo Mobile",
+	'ship date': 11/11/22,
+	'quan':2
+},
+{
+	'Order_id': 3,
+	'Order_no': 20125,
+	'Order_date':8/11/22,
+	'Cust_id': 101,
+	'Product': "VU TV",
+	'ship date': 11/11/22,
+	'quan':1
+},
+{
+	'Order_id': 4,
+	'Order_no': 20126,
+	'Order_date':6/11/22,
+	'Cust_id': 103,
+	'Product': "iPhone 12",
+	'ship date': 10/11/22,
+	'quan':2
+},
+{
+	'Order_id': 5,
+	'Order_no': 20127,
+	'Order_date':10/11/22,
+	'Cust_id': 104,
+	'Product': "iPad",
+	'ship date': 12/11/22,
+	'quan':2
+}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65e56cd5461d1b49316323c9'),
+    '1': ObjectId('65e56cd5461d1b49316323ca'),
+    '2': ObjectId('65e56cd5461d1b49316323cb'),
+    '3': ObjectId('65e56cd5461d1b49316323cc'),
+    '4': ObjectId('65e56cd5461d1b49316323cd')
+  }
+}
+
+
+
+3.
+
+db.order.insertMany([
+{
+	'Order_id': 1,
+	'Order_no': 20123,
+	'Order_date':8/11/22,
+	'Cust_id': 101,
+	'Product': "Samsung Mobile",
+	'ship date': 10/11/22,
+	'quan':1
+},
+{
+	'Order_id': 2,
+	'Order_no': 20124,
+	'Order_date':7/11/22,
+	'Cust_id': 102,
+	'Product': "Oppo Mobile",
+	'ship date': 11/11/22,
+	'quan':2
+},
+{
+	'Order_id': 3,
+	'Order_no': 20125,
+	'Order_date':8/11/22,
+	'Cust_id': 101,
+	'Product': "VU TV",
+	'ship date': 11/11/22,
+	'quan':1
+},
+{
+	'Order_id': 4,
+	'Order_no': 20126,
+	'Order_date':6/11/22,
+	'Cust_id': 103,
+	'Product': "iPhone 12",
+	'ship date': 10/11/22,
+	'quan':2
+},
+{
+	'Order_id': 5,
+	'Order_no': 20127,
+	'Order_date':10/11/22,
+	'Cust_id': 104,
+	'Product': "iPad",
+	'ship date': 12/11/22,
+	'quan':2
+}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65e56cd5461d1b49316323c9'),
+    '1': ObjectId('65e56cd5461d1b49316323ca'),
+    '2': ObjectId('65e56cd5461d1b49316323cb'),
+    '3': ObjectId('65e56cd5461d1b49316323cc'),
+    '4': ObjectId('65e56cd5461d1b49316323cd')
+  }
+}
+
+
+
+4.
+db.Cust.updateOne({"Cust_id":105},{$set:{"contact":9876512345}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Cust.find()
+{
+  _id: ObjectId('65e56ae7461d1b49316323c4'),
+  Cust_id: 101,
+  Cust_name: 'Praveen',
+  city: 'Coimbatore',
+  address: '12, Jain Street',
+  contact: 976543210
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c5'),
+  Cust_id: 102,
+  Cust_name: 'Rattan',
+  city: 'Delhi',
+  address: '14, Nehru Street',
+  contact: 9867854321
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c6'),
+  Cust_id: 103,
+  Cust_name: 'Charles',
+  city: 'Mumbai',
+  address: '67, Canal Street',
+  contact: 8765412345
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c7'),
+  Cust_id: 104,
+  Cust_name: 'Tiger',
+  city: 'Pune',
+  address: '34, Mocha Street',
+  contact: 7890123456
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c8'),
+  Cust_id: 105,
+  Cust_name: 'Kishore',
+  city: 'Bangalore',
+  address: '9, West Road',
+  contact: 9876512345
+}
+
+
+5.
+
+
+db.order.find({"Order_no":20125,quan:{$gt:1}})
+
+
+
+6.
+db.Cust.find().sort({"Cust_name":1})
+{
+  _id: ObjectId('65e56ae7461d1b49316323c6'),
+  Cust_id: 103,
+  Cust_name: 'Charles',
+  city: 'Mumbai',
+  address: '67, Canal Street',
+  contact: 8765412345
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c8'),
+  Cust_id: 105,
+  Cust_name: 'Kishore',
+  city: 'Bangalore',
+  address: '9, West Road',
+  contact: 9876512345
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c4'),
+  Cust_id: 101,
+  Cust_name: 'Praveen',
+  city: 'Coimbatore',
+  address: '12, Jain Street',
+  contact: 976543210
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c5'),
+  Cust_id: 102,
+  Cust_name: 'Rattan',
+  city: 'Delhi',
+  address: '14, Nehru Street',
+  contact: 9867854321
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c7'),
+  Cust_id: 104,
+  Cust_name: 'Tiger',
+  city: 'Pune',
+  address: '34, Mocha Street',
+  contact: 7890123456
+}
+
+
+
+7.
+db.order.find({}, {Product:1, quan:1,_id:0})
+{
+  Product: 'Samsung Mobile',
+  quan: 1
+}
+{
+  Product: 'Oppo Mobile',
+  quan: 2
+}
+{
+  Product: 'VU TV',
+  quan: 1
+}
+{
+  Product: 'iPhone 12',
+  quan: 2
+}
+{
+  Product: 'iPad',
+  quan: 2
+}
+
+
+
+
+8.
+db.order.updateOne({"Order_no":20126},{$set:{"Product":"iphone 14"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.order.find()
+{
+  _id: ObjectId('65e56cd5461d1b49316323c9'),
+  Order_id: 1,
+  Order_no: 20123,
+  Order_date: 0.03305785123966942,
+  Cust_id: 101,
+  Product: 'Samsung Mobile',
+  'ship date': 0.04132231404958678,
+  quan: 1
+}
+{
+  _id: ObjectId('65e56cd5461d1b49316323ca'),
+  Order_id: 2,
+  Order_no: 20124,
+  Order_date: 0.028925619834710745,
+  Cust_id: 102,
+  Product: 'Oppo Mobile',
+  'ship date': 0.045454545454545456,
+  quan: 2
+}
+{
+  _id: ObjectId('65e56cd5461d1b49316323cb'),
+  Order_id: 3,
+  Order_no: 20125,
+  Order_date: 0.03305785123966942,
+  Cust_id: 101,
+  Product: 'VU TV',
+  'ship date': 0.045454545454545456,
+  quan: 1
+}
+{
+  _id: ObjectId('65e56cd5461d1b49316323cc'),
+  Order_id: 4,
+  Order_no: 20126,
+  Order_date: 0.024793388429752063,
+  Cust_id: 103,
+  Product: 'iphone 14',
+  'ship date': 0.04132231404958678,
+  quan: 2
+}
+{
+  _id: ObjectId('65e56cd5461d1b49316323cd'),
+  Order_id: 5,
+  Order_no: 20127,
+  Order_date: 0.04132231404958678,
+  Cust_id: 104,
+  Product: 'iPad',
+  'ship date': 0.04958677685950413,
+  quan: 2
+}
+
+
+9.
+
+db.order.find({quan:{"$ne":2}})
+{
+  _id: ObjectId('65e56cd5461d1b49316323c9'),
+  Order_id: 1,
+  Order_no: 20123,
+  Order_date: 0.03305785123966942,
+  Cust_id: 101,
+  Product: 'Samsung Mobile',
+  'ship date': 0.04132231404958678,
+  quan: 1
+}
+{
+  _id: ObjectId('65e56cd5461d1b49316323cb'),
+  Order_id: 3,
+  Order_no: 20125,
+  Order_date: 0.03305785123966942,
+  Cust_id: 101,
+  Product: 'VU TV',
+  'ship date': 0.045454545454545456,
+  quan: 1
+}
+
+
+
+10.
+
+db.Cust.deleteOne({"city":"Pune"})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.Cust.find()
+{
+  _id: ObjectId('65e56ae7461d1b49316323c4'),
+  Cust_id: 101,
+  Cust_name: 'Praveen',
+  city: 'Coimbatore',
+  address: '12, Jain Street',
+  contact: 976543210
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c5'),
+  Cust_id: 102,
+  Cust_name: 'Rattan',
+  city: 'Delhi',
+  address: '14, Nehru Street',
+  contact: 9867854321
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c6'),
+  Cust_id: 103,
+  Cust_name: 'Charles',
+  city: 'Mumbai',
+  address: '67, Canal Street',
+  contact: 8765412345
+}
+{
+  _id: ObjectId('65e56ae7461d1b49316323c8'),
+  Cust_id: 105,
+  Cust_name: 'Kishore',
+  city: 'Bangalore',
+  address: '9, West Road',
+  contact: 9876512345
+}
+
